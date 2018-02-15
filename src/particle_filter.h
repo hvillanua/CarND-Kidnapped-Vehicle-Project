@@ -10,6 +10,11 @@
 #define PARTICLE_FILTER_H_
 
 #include "helper_functions.h"
+#include "Eigen/Dense"
+#include <random>
+
+using Eigen::MatrixXd;
+using Eigen::VectorXd;
 
 struct Particle {
 
@@ -30,7 +35,8 @@ class ParticleFilter {
 	// Number of particles to draw
 	int num_particles; 
 	
-	
+	// Random engine
+	std::default_random_engine gen;
 	
 	// Flag, if filter is initialized
 	bool is_initialized;
@@ -78,7 +84,7 @@ public:
 	 * @param predicted Vector of predicted landmark observations
 	 * @param observations Vector of landmark observations
 	 */
-	void dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations);
+	void dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations, double std_landmark[]);
 	
 	/**
 	 * updateWeights Updates the weights for each particle based on the likelihood of the 
